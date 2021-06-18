@@ -1,2 +1,19 @@
-<h1>Posts#index</h1>
-<p>Find me in app/views/posts/index.html.erb</p>
+<h1>ToDoリスト</h1>
+<h3>やること一覧</h3>
+<%= link_to("新規投稿", new_post_path) %>
+<% if @posts == [] %>
+    <p>やることはありません</p>
+<% else %>
+    <div class="posts-container">
+        <% @posts.each do |p| %>
+            <div class="post">
+                <p>タイトル：<%= p.subject_name %></p>
+                <p>内容：<%= p.content %></p>
+                <%= p.created_at %>
+                <%= link_to("詳細", post_path(p.id)) %>
+                <%= link_to("編集", edit_post_path(p.id)) %>
+                <%= button_to("削除", post_path(p.id), method: :delete) %>
+            </div>
+        <% end %>
+    </div>
+<% end %>

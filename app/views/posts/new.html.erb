@@ -1,2 +1,16 @@
-<h1>Posts#new</h1>
-<p>Find me in app/views/posts/new.html.erb</p>
+<h1>ToDoリスト</h1>
+<h3>新規投稿</h3>
+<%= form_for @post do |f| %>
+    <div class="title">
+        <%= f.label :subject_name %>
+        <%= f.text_field :subject_name, :size => 140 %>
+    </div>
+    <div class="contents">
+        <%= f.label :content %>
+        <%= f.text_field :content, :size => 140 %>
+    </div>
+    <%= f.submit "投稿" %>
+<% end %>
+<%= link_to("やること一覧に戻る", posts_path) %>
+
+<%= button_to 'ログアウト', destroy_user_session_path, method: :delete %>
