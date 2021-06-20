@@ -6,7 +6,7 @@ class MessagesController < ApplicationController
             @message = Message.create(params.require(:message).permit(:user_id, :content, :room_id).merge(:user_id => current_user.id))
             redirect_to "/rooms/#{@room.id}"
         else
-            redirect_back(fallback_location: users_path)
+            redirect_back(fallback_location: user_index_path)
         end
     end
 end
