@@ -11,6 +11,19 @@
   </head>
 
   <body>
-    <%= yield %>
+    <header>
+      <h1>Selflearning</h1>
+      <div class="header-list">
+        <ul>
+          <li><%= link_to("ホーム", posts_path) %></li>
+          <li><%= link_to("新規投稿", new_post_path) %></li>
+        </ul>
+      </div>
+    </header>
+    <main>
+        <%= yield %>
+    </main>
   </body>
 </html>
+
+<%# どの画面にも共通で表示されるレイアウトを作る %>
