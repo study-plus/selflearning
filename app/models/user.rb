@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, :trackable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
 
   has_many :posts, dependent: :destroy
   has_many :likes, dependent: :destroy
@@ -41,3 +41,6 @@ class User < ApplicationRecord
     self.followings.include?(other_user.id)
   end
 end
+
+# refferences
+# https://qiita.com/terufumi1122/items/d5530bc87689d886dee8（devise :trackableのせいでundifinded method 'current_sign_in_at'がでる）

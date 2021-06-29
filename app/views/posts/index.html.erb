@@ -1,18 +1,42 @@
 <h1>ToDoリスト</h1>
+<%= button_to("ログアウト", destroy_user_session_path, method: :delete) %>
 <h3>やること一覧</h3>
+
 <%= link_to("新規投稿", new_post_path) %>
 <% if @posts == [] %>
     <p>やることはありません</p>
 <% else %>
     <div class="posts-container">
         <% @posts.each do |p| %>
+            <%= p.user.email %>
+            <a href="/users/<%= p.user.id %>"><%= p.user.name %></a>
             <div class="post">
-                <p>タイトル：<%= p.subject_name %></p>
-                <p>内容：<%= p.content %></p>
-                <%= p.created_at %>
-                <%= link_to("詳細", post_path(p.id)) %>
-                <%= link_to("編集", edit_post_path(p.id)) %>
-                <%= button_to("削除", post_path(p.id), method: :delete) %>
+                <div class="main-box">
+                    <div class="left-container">
+                        <%= p.subject_name %><%= p.content %>
+                        <% if user_signed_in? %>
+                            <% if current_user.already_liked?(p) %>
+                                <%= link_to post_like_path(id: p.id, post_id: p.id), method: :delete do %>
+                                    <i class="fas fa-heart"></i><%= p.likes.count %>
+                                <% end %>
+                            <% else %>
+                                <%= link_to post_likes_path(id: p.id, post_id: p.id), method: :post do %>
+                                    <i class="far fa-heart"></i><%= p.likes.count %>
+                                <% end %>
+                            <% end %>
+                        <% else %>
+                            <i class="far fa-heart"></i><%= p.likes.count %>
+                        <% end %>
+                    </div>
+                    <div class="right-container">
+                        <%= link_to("詳細", post_path(p.id)) %>
+                        <% if user_signed_in? && current_user.id == p.user_id %>
+                            <%= link_to("編集", edit_post_path(p.id)) %>
+                            <%= link_to("削除", post_path(p.id), method: :delete) %>
+                        <% end %>
+                    </div>
+                </div>
+                    <p class="time"><%= p.created_at %></p>
             </div>
         <% end %>
     </div>
