@@ -1,7 +1,10 @@
 <h1>ToDoリスト</h1>
 <%= button_to("ログアウト", destroy_user_session_path, method: :delete) %>
-<h3>やること一覧</h3>
+<% if user_signed_in? %>
+    <%= link_to("マイページへ", user_path(current_user.id))%>
+<% end %>
 
+<h3>やること一覧</h3>
 <%= link_to("新規投稿", new_post_path) %>
 <% if @posts == [] %>
     <p>やることはありません</p>
