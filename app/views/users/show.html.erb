@@ -7,7 +7,7 @@
     <%= link_to "編集する", edit_user_registration_path %>
 <% else %>
     <% if @isRoom == true %>
-        <a href="/rooms/<%= @room.id %>">チャットへ</a>
+        <a href="/rooms/<%= @roomId %>">チャットへ</a>
     <% else %>
         <%= form_for @room do |f| %>
             <%= fields_for @entry do |e| %>
@@ -31,6 +31,6 @@
     <%= t.content %>
 <% end %>
 <!-- ここまで-->
-
+<br>
 <%= link_to "投稿一覧に戻る", posts_path %>
 <%= link_to "ユーザー一覧に戻る", user_index_path %>
