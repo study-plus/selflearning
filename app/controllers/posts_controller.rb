@@ -6,7 +6,7 @@ class PostsController < ApplicationController
     elsif params[:search] == ''
       @posts = Post.all
     else
-      @posts =   Post.where("content LIKE ? ",'%' + params[:search] + '%')
+      @posts =   Post.where("subject_name LIKE ? OR content LIKE ? ",'%'+params[:search]+'%','%'+params[:search]+'%')
     end
     
   end
