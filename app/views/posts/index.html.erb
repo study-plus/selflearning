@@ -19,7 +19,7 @@
         <div class="post">
             <div class="main-box">
                 <div class="left-container">
-                    <%= p.subject_name %><%= p.content %>
+                    <%= check_box_tag :sample %> <%= p.subject_name %> <%= p.content %>
                     <% if user_signed_in? %>
                         <% if current_user.already_liked?(p) %>
                             <%= link_to post_like_path(id: p.id, post_id: p.id), method: :delete do %>
