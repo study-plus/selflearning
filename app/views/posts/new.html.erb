@@ -12,6 +12,11 @@
             <%= f.label :content %>
             <%= f.text_field :content, :size => 140 %>
         </div>
+
+        <div class="field">
+            <%= f.label :目標時間 %>
+            <%= f.text_field :hour, :size => 30 %>:<%= f.text_field :minutes, :size => 30 %>
+        </div>
         <%= f.submit "投稿" %>
     <% end %>
 </div>
