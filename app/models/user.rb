@@ -9,7 +9,7 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :messages, dependent: :destroy
   has_many :entries, dependent: :destroy
-
+  has_many :events
 
   validates :name, presence: true # 値が入ってないといけない → 必ず入力
   validates :profile, length: { maximum: 200 } # 200字以内

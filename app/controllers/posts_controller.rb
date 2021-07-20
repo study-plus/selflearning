@@ -18,6 +18,7 @@ class PostsController < ApplicationController
   def create
     post = Post.new(post_params)
     post.user_id = current_user.id
+    post.toal = post.hour + (post.minutes/60)
     if post.save
         redirect_to posts_path
     else

@@ -24,5 +24,8 @@ class UsersController < ApplicationController
                 @entry = Entry.new
             end
         end
+
+        @events = Event.where(user_id: @user.id)
+        @event = Event.new
     end
 end
