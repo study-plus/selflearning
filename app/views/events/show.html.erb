@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+    <strong>タイトル</strong>
+    <%= @event.title %>
+</p>
+
+<p>
+    <strong>時間</strong>
+    <%= @event.start.strftime("%Y-%m-%d %H:%M") %>~
+    <%= @event.end.strftime("%Y-%m-%d %H:%M") %>
+</p>
+
+<p>
+    <strong>内容</strong>
+    <%= @event.content %>
+</p>
+
+<%= link_to 'Edit', edit_user_event_path(@event.id) %> 
+<%= link_to 'Back', user_event_path(@user.id) %>
