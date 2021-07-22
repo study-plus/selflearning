@@ -10,6 +10,8 @@ class User < ApplicationRecord
   has_many :messages, dependent: :destroy
   has_many :entries, dependent: :destroy
   has_many :events
+  has_many :checks, dependent: :destroy
+  has_many :checked_posts, through: :checks, source: :post
 
   validates :name, presence: true # 値が入ってないといけない → 必ず入力
   validates :profile, length: { maximum: 200 } # 200字以内
@@ -39,6 +41,10 @@ class User < ApplicationRecord
 
   def following?(other_user)
     self.followings.include?(other_user.id)
+  end
+
+  def already_checked?(post)
+    self.checks.exists?(post_id: post.id)
   end
 end
 

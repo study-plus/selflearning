@@ -19,8 +19,17 @@
         <div class="post">
             <div class="main-box">
                 <div class="left-container">
-                    <%= check_box_tag :sample %> <%= p.subject_name %> <%= p.content %>
+                        <%= p.subject_name %> <%= p.content %>
                     <% if user_signed_in? %>
+                        <% if current_user.id == p.user_id %>
+                            <% if current_user.already_checked?(p) %>
+                                <i class="fas fa-check-square"></i>
+                            <% else %>
+                                <%= link_to post_checks_path(id: p.id, post_id: p.id), method: :post do %>
+                                    <i class="far fa-check-square"></i>
+                                <% end %>
+                            <% end %>
+                        <% end %>
                         <% if current_user.already_liked?(p) %>
                             <%= link_to post_like_path(id: p.id, post_id: p.id), method: :delete do %>
                                 <i class="fas fa-heart"></i><%= p.likes.count %>
