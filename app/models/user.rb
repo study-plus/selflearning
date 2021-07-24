@@ -9,7 +9,7 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :messages, dependent: :destroy
   has_many :entries, dependent: :destroy
-  has_many :events
+  has_many :events, dependent: :destroy
   has_many :checks, dependent: :destroy
   has_many :checked_posts, through: :checks, source: :post
 

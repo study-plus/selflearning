@@ -1,4 +1,4 @@
-<h1>マイページ</h1>
+<h2>マイページ</h2>
 <p>名前 : <%= @user.name %></p>
 <p>メールアドレス : <%= @user.email %></p>
 <p>プロフィール : <%= @user.profile %></p>
@@ -60,7 +60,7 @@
 
         <% events.each do |event| %>
             <div>
-                <%= link_to event.title, user_event_path(event.id) %>
+                <%= link_to event.title, user_event_path(event.user_id, event.id) %>
             </div>
         <% end %>
     <% end %>
@@ -82,3 +82,59 @@
 <br>
 <%= link_to "投稿一覧に戻る", posts_path %>
 <%= link_to "ユーザー一覧に戻る", users_path %>
+
+
+<div class="main-box">
+    <div class="left-container">
+        <div class="profile">
+            <h2>マイページ</h2>
+            <p>名前 : <%= @user.name %></p>
+            <p>メールアドレス : <%= @user.email %></p>
+            <p>プロフィール : <%= @user.profile %></p>
+            <%= render "relationships/follow_button", user: @user %>
+            <% if @user.id == current_user.id %>
+                <%= link_to "プロフィールの編集", edit_user_registration_path %>
+            <% else %>
+                <% if @isRoom == true %>
+                    <a href="/rooms/<%= @roomId %>">チャットへ</a>
+                <% else %>
+                    <%= form_for @room do |f| %>
+                        <%= fields_for @entry do |e| %>
+                            <%= e.hidden_field :user_id, :value=> @user.id %>
+                        <% end %>
+                        <%= f.submit "チャットを始める" %>
+                    <% end %>
+                <% end %>
+            <% end %>
+        </div>
+        <div class="mytime-line">
+            <h3><%= @user.name %>さんの最近の状況</h3>
+            <% @user.checked_posts.each do |cp| %>
+                <p>
+                    <%= cp.subject_name %>
+                    <%= cp.content %>
+                </p>
+            <% end %>
+        </div>
+    </div>
+    <div class="right-container">
+        <div class="study-chart">
+            <h3><%= @user.name %>さんの勉強時間</h3>
+            <%= column_chart Post.pluck(:created_at, :total) %>
+        </div>
+        <div class="calendar">
+            <h3><%= @user.name %>さんの予定</h3>
+            <% if @user.id == current_user.id %>
+                <%= link_to "予定を追加する", "/users/#{@user.id}/events/new" %>
+            <% end %>
+            <%= month_calendar events: @events do |date, events| %>
+                <%= date.day %>
+                <% events.each do |event| %>
+                    <p>
+                        <%= link_to event.title, user_event_path(event.user_id, event.id) %>
+                    </p>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+</div>

@@ -19,10 +19,13 @@ class EventsController < ApplicationController
     end
 
     def destroy
-        @user = User.find(params[:id])
-        @event = Event.find(params[:id])
-        @event.destroy
-        redirect_to user_path(@user), notice: "削除しました"
+        @user = User.find(params[:user_id])
+        event = Event.find_by(user_id: params[:user_id], id: params[:id])
+        if event.destroy
+            redirect_to user_path(@user), notice: "削除しました"
+        else
+            redirect_to user_event_path(event.user_id, event.id)
+        end
     end
 
     def edit

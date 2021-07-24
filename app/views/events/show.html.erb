@@ -16,5 +16,6 @@
     <%= @event.content %>
 </p>
 
-<%= link_to 'Edit', edit_user_event_path(@event.id) %> 
-<%= link_to 'Back', user_event_path(@user.id) %>
+<%= link_to '編集する', edit_user_event_path(@user.id,@event.id) %> 
+<%= link_to "削除する", user_event_path(@user.id,@event.id), method: :delete, data: {confirm: 'Are you sure?'} %>
+<%= link_to 'Back', user_path(@user.id) %>
