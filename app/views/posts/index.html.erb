@@ -1,121 +1,69 @@
-<h1>ToDoリスト</h1>
-<%= button_to("ログアウト", destroy_user_session_path, method: :delete) %>
-<% if user_signed_in? %>
-    <%= link_to("マイページへ", user_path(current_user.id))%>
-<% end %>
-
-<h3>やること一覧</h3>
-<h3>投稿の検索</h3>
-<%= form_tag({controller:"posts",action:"index"}, method: :get) do %>
-    <%= text_field_tag :search %>
-        <%= submit_tag "検索" %>
-<% end %>
-
-<%= link_to("新規投稿", new_post_path) %>
-<div class="posts-container">
-    <% @posts.each do |p| %>
-        <%= p.user.email %>
-        <a href="/users/<%= p.user.id %>"><%= p.user.name %></a>
-        <div class="post">
-            <div class="main-box">
-                <div class="left-container">
-                        <%= p.subject_name %> <%= p.content %>
-                    <% if user_signed_in? %>
-                        <% if current_user.id == p.user_id %>
-                            <% if current_user.already_checked?(p) %>
-                                <i class="fas fa-check-square"></i>
-                            <% else %>
-                                <%= link_to post_checks_path(id: p.id, post_id: p.id), method: :post do %>
-                                    <i class="far fa-check-square"></i>
-                                <% end %>
-                            <% end %>
-                        <% end %>
-                        <% if current_user.already_liked?(p) %>
-                            <%= link_to post_like_path(id: p.id, post_id: p.id), method: :delete do %>
-                                <i class="fas fa-heart"></i><%= p.likes.count %>
-                            <% end %>
-                        <% else %>
-                            <%= link_to post_likes_path(id: p.id, post_id: p.id), method: :post do %>
-                                <i class="far fa-heart"></i><%= p.likes.count %>
-                            <% end %>
-                        <% end %>
-                    <% else %>
-                        <i class="far fa-heart"></i><%= p.likes.count %>
-                    <% end %>
-                </div>
-                <div class="right-container">
-                    <%= link_to("詳細", post_path(p.id)) %>
-                    <% if user_signed_in? && current_user.id == p.user_id %>
-                        <%= link_to("編集", edit_post_path(p.id)) %>
-                        <%= link_to("削除", post_path(p.id), method: :delete) %>
-                    <% end %>
-                </div>
-            </div>
-                <p class="time"><%= p.created_at %></p>
-        </div>
-    <% end %>
-</div>
+<%= stylesheet_link_tag "posts", :media => "all" %>
 
 <div class="main-container">
     <% if user_signed_in? %>
         <div class="todo-container">
-            <h3>やることリスト</h3>
-            <h3>投稿の検索</h3>
+            <h3 class="todo-title">やることリスト</h3>
             <%= form_tag({controller:"posts",action:"index"}, method: :get) do %>
                 <%= text_field_tag :search %>
                 <%= submit_tag "検索" %>
             <% end %>
-            <h3><%= link_to("新規投稿", new_post_path) %></h3>
             <% @myposts.each do |mp| %>
-                <div class="left-container">
-                    <% if current_user.already_checked?(mp) %>
-                        <i class="fas fa-check-square"></i>
-                    <% else %>
-                        <%= link_to post_checks_path(id: mp.id, post_id: mp.id), method: :post do %>
-                            <i class="far fa-check-square"></i>
+                <div class="post">
+                    <div class="left-container">
+                        <% if current_user.already_checked?(mp) %>
+                            <i class="fas fa-check-square"></i>
+                        <% else %>
+                            <%= link_to post_checks_path(id: mp.id, post_id: mp.id), method: :post do %>
+                                <i class="far fa-check-square"></i>
+                            <% end %>
                         <% end %>
-                    <% end %>
-                    <%= mp.subject_name %> <%= mp.content %>
-                </div>
-                <div class="right-container">
-                    <%= link_to("編集する", edit_post_path(mp.id)) %>
-                    <%= link_to("削除する", post_path(mp.id), method: :delete) %>
+                        <%= mp.subject_name %> <%= mp.content %> <%= mp.hour %>時間<%= mp.minutes %>分
+                    </div>
+                    <div class="right-container">
+                        <%= mp.created_at %>
+                        <%= link_to edit_post_path(mp.id) do %>
+                            <i class="fas fa-pen"></i>
+                        <% end %>
+                        <%= link_to post_path(mp.id), method: :delete do %>
+                            <i class="fas fa-trash-alt"></i>
+                        <% end %>
+                    </div>
                 </div>
             <% end %>
         </div>
         <div class="timeline-container">
-            <h3>みんなの状況</h3>
-            <h3>検索</h3>
+            <h3 class="todo-title">みんなの状況</h3>
             <%= form_tag({controller:"posts",action:"index"}, method: :get) do %>
                 <%= text_field_tag :search %>
                 <%= submit_tag "検索" %>
             <% end %>
             <% @posts.each do |p| %>
                 <% if current_user.already_checked?(p) %>
-                    <a href="/users/<%= p.user.id %>"><%= p.user.name %></a>
                     <div class="post">
-                        <div class="main-box">
-                            <div class="left-container">
-                                <%= p.subject_name %> <%= p.content %>
-                                <% if user_signed_in? %>
-                                    <% if current_user.already_liked?(p) %>
-                                        <%= link_to post_like_path(id: p.id, post_id: p.id), method: :delete do %>
-                                            <i class="fas fa-heart"></i><%= p.likes.count %>
-                                        <% end %>
-                                    <% else %>
-                                        <%= link_to post_likes_path(id: p.id, post_id: p.id), method: :post do %>
-                                            <i class="far fa-heart"></i><%= p.likes.count %>
-                                        <% end %>
+                        <a href="/users/<%= p.user.id %>"><%= p.user.name %></a>
+                        <div class="left-container">
+                            <%= p.subject_name %> <%= p.content %> <%= p.hour %>時間<%= p.minutes %>分
+                        </div>
+                        <div class="right-container">
+                            <%= p.created_at %>
+                            <%= link_to post_path(p.id) do %>
+                                <i class="fas fa-info-circle"></i>
+                            <% end %>
+                            <% if user_signed_in? %>
+                                <% if current_user.already_liked?(p) %>
+                                    <%= link_to post_like_path(id: p.id, post_id: p.id), method: :delete , data: {confirm: '本当に消してもいいの？'} do %>
+                                        <i class="fas fa-heart"></i><%= p.likes.count %>
                                     <% end %>
                                 <% else %>
-                                    <i class="far fa-heart"></i><%= p.likes.count %>
+                                    <%= link_to post_likes_path(id: p.id, post_id: p.id), method: :post do %>
+                                        <i class="far fa-heart"></i><%= p.likes.count %>
+                                    <% end %>
                                 <% end %>
-                            </div>
-                            <div class="right-container">
-                                <%= link_to("詳細", post_path(p.id)) %>
-                            </div>
+                            <% else %>
+                                <i class="far fa-heart"></i> <%= p.likes.count %>
+                            <% end %>
                         </div>
-                        <p class="time"><%= p.created_at %></p>
                     </div>
                 <% end %>
             <% end %>

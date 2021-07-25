@@ -1,4 +1,3 @@
-<h1>ToDoリスト</h1>
 <h3>新規投稿</h3>
 <div class="post-container">
     <p class="title">投稿フォーム</p>
@@ -9,17 +8,30 @@
         </div>
 
         <div class="field">
-            <%= f.label :content %>
+            <%= f.label :内容 %>
             <%= f.text_field :content, :size => 140 %>
         </div>
 
         <div class="field">
             <%= f.label :目標時間 %>
-            <%= f.text_field :hour, :size => 30 %>:<%= f.text_field :minutes, :size => 30 %>
+            <%= f.number_field :hour ,:max => 24,:min => 0%>:<%= f.number_field :minutes, :max => 60, :min => 0 %>
         </div>
         <%= f.submit "投稿" %>
     <% end %>
 </div>
-<%= link_to("やること一覧に戻る", posts_path) %>
 
-<%= button_to 'ログアウト', destroy_user_session_path, method: :delete %>
+<div class="main-container">
+    <div class="post-container">
+        <h3>やることの追加</h3>
+        <div class="post-container">
+            <p class="post-title">投稿フォーム</p>
+            <%= form_for @post do |f| %>
+                <div class="field">
+                    <%= f.label :教科名 %>
+                    <%= f.text_field :subject_name, :size => 140 %>
+                </div>
+                
+            <% end %>
+        </div>
+    </div>
+</div>

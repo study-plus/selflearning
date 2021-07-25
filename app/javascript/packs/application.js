@@ -12,6 +12,5 @@ Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
-require('Chart.bundle')
-require('chartkick')
-require('chart.js')
+require("chartkick")
+require("chart.js")
