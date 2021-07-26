@@ -1,5 +1,20 @@
-<%= form_for @post do |f| %>
-    <%= f.label :content %>
-    <%= f.text_field :content, :size => 140 %>
-    <%= f.submit "編集する" %>
-<%end%>
+<%= stylesheet_link_tag "new", :media => "all" %>
+
+<div class="post-container">
+    <p class="post-title">投稿フォーム</p>
+    <%= form_for @post do |f| %>
+        <div class="field">
+            <%= f.label :教科名 %>
+            <%= f.text_field :subject_name, :size => 30 %>
+        </div>
+        <div class="field">
+            <%= f.label :内容 %>
+            <%= f.text_field :content, :size => 140 %>
+        </div>
+        <div class="field">
+            <%= f.label :目標時間 %>
+            <%= f.number_field :hour ,:max => 24,:min => 0%>:<%= f.number_field :minutes, :max => 60, :min => 0 %>
+        </div>
+        <%= f.submit "編集する" %>
+    <% end %>
+</div>
