@@ -1,21 +1,26 @@
-<p id="notice"><%= notice %></p>
+<%= stylesheet_link_tag "event", :media => "all" %>
 
-<p>
-    <strong>タイトル</strong>
-    <%= @event.title %>
-</p>
-
-<p>
-    <strong>時間</strong>
-    <%= @event.start.strftime("%Y-%m-%d %H:%M") %>~
-    <%= @event.end.strftime("%Y-%m-%d %H:%M") %>
-</p>
-
-<p>
-    <strong>内容</strong>
-    <%= @event.content %>
-</p>
-
-<%= link_to '編集する', edit_user_event_path(@user.id,@event.id) %> 
-<%= link_to "削除する", user_event_path(@user.id,@event.id), method: :delete, data: {confirm: 'Are you sure?'} %>
-<%= link_to 'Back', user_path(@user.id) %>
+<div class="post-container">
+    <p class="post">
+        <strong>タイトル</strong>：
+        <%= @event.title %>
+    </p>
+    <p class="post">
+        <strong>時間</strong>:
+        <%= @event.start.strftime("%Y/%m/%d %H:%M") %>~
+        <%= @event.end.strftime("%Y/%m/%d %H:%M") %>
+    </p>
+    <p class="post">
+        <strong>内容</strong>:
+        <%= @event.content %>
+    </p>
+    <%= link_to edit_user_event_path(@user.id,@event.id) do %>
+        <i class="fas fa-pen"></i>
+    <% end %>
+    <%= link_to user_event_path(@user.id,@event.id), method: :delete, data: {confirm: 'Are you sure?'} do %>
+        <i class="fas fa-trash-alt"></i>
+    <% end %>
+    <%= link_to user_path(@user.id) do %>
+        <i class="fas fa-undo-alt"></i>
+    <% end %>
+</div>

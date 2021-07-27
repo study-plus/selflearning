@@ -1,25 +1,26 @@
-<%= form_with(model: [@user,@event], url: user_events_path, local: true) do |f| %>
+<%= stylesheet_link_tag "new", :media => "all" %>
 
-    <div class="title">
-        <%= f.label :title %>
-        <%= f.text_field :title %>
-    </div>
-
-    <div class="time">
-        <%= f.label :start %>
-        <%= f.datetime_select :start %>
-        <%= f.label :end %>
-        <%= f.datetime_select :end %>
-    </div>
-
-    <div class="content">
-        <%= f.label :content %>
-        <%= f.text_field :content %>
-    </div>
-
-
-    <div class="submit">
-        <%= f.submit %>
-    </div>
-
-<% end %>
+<div class="post-container">
+    <%= form_with(model: [@user,@event], url: user_events_path, local: true) do |f| %>
+        <div class="title">
+            <%= f.label :予定の概要 %>
+            <%= f.text_field :title %>
+        </div>
+        <br>
+        <div class="time">
+            <%= f.label :開始時刻 %>
+            <%= f.datetime_select :start %>
+            <%= f.label :終了時刻 %>
+            <%= f.datetime_select :end %>
+        </div>
+        <br>
+        <div class="content">
+            <%= f.label :予定の内容 %>
+            <%= f.text_field :content %>
+        </div>
+        <br>
+        <div class="submit">
+            <%= f.submit "投稿" %>
+        </div>
+    <% end %>
+</div>

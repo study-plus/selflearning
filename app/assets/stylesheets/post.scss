@@ -1,0 +1,27 @@
+.post-container {
+    margin: 50px auto;
+    width: 50%;
+    border: solid #d3def1;
+    border-radius: 10px;
+    text-align: left;
+    background-color: #d3def1;
+}
+.user-name {
+    font-size: 20px;
+}
+.post-content {
+    font-size: 24px;
+}
+.like-content {
+    font-size: 20px;
+}
+input[type="text"] {
+    width: 95%;
+    height: 40px;
+}
+input[type="submit"] {
+    width: 200px;
+    font-size: 20px;
+    margin-top: 50px;
+    margin-bottom: 30px;
+}

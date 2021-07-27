@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :relationships, only: [:create, :destroy]
 
   devise_for :users
-  resources :users, only: [:index, :show] do
+  resources :users, only: [:index, :show, :edit, :update] do
     resources :events
   end
   # get '/users/index' => 'users#index', as: 'user_index'

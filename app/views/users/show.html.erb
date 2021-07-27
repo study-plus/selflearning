@@ -7,7 +7,7 @@
     <p>プロフィール : <%= @user.profile %></p>
     <%= render "relationships/follow_button", user: @user %>
     <% if @user.id == current_user.id %>
-        <%= button_to "プロフィールの編集", edit_user_registration_path %>
+        <%= button_to "プロフィールの編集", edit_user_registration_path, method: :get %>
     <% else %>
         <% if @isRoom == true %>
             <a href="/rooms/<%= @roomId %>">チャットへ</a>
@@ -61,7 +61,7 @@
         <div class="calendar">
             <h3 class="title"><%= @user.name %>さんの予定</h3>
             <% if @user.id == current_user.id %>
-                <%= button_to "予定を追加する", "/users/#{@user.id}/events/new" %>
+                <%= button_to "予定を追加する", new_user_event_path(@user.id), method: :get%>
             <% end %>
             <%= month_calendar events: @events do |date, events| %>
                 <%= date.day %>
