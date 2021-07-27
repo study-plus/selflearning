@@ -61,6 +61,6 @@ gem 'devise'
 gem 'simple_calendar', '~> 2.0'
 
 # for deploy
-group :production do
-  gem 'pg'
-end
+# group :production do
+#   gem 'pg'
+# end
