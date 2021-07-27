@@ -1,8 +1,9 @@
 .profile {
-    margin-top: 10px;
-    margin-left: 100px;
-    margin-right: 100px;
-    margin-bottom: 10px;
+    margin-top: 20px;
+    margin-left: 110px;
+    margin-right: 110px;
+    margin-bottom: 20px;
+    border: 1px solid #080808;
 }
 
 .main-container {
@@ -16,14 +17,28 @@
     min-height: 100%;
 }
 
+.main-container > .left-container {
+    height: auto;
+}
+
 .left-container {
     margin: 0 10px;
     width: 100%;
     height: 100%;
     min-height: 100%;
-    background-color: rgb(7, 199, 247);
+    border: 1px solid #080808;
     overflow: hidden;
     overflow-y: scroll;
+}
+
+.title {
+    background-color: rgb(7, 199, 247);
+}
+
+.checked-post {
+    background-color: rgb(191, 241, 8);
+    border: solid 1px rgb(3, 3, 3);
+    margin-bottom: 20px;
 }
 
 .right-container {
@@ -34,10 +49,10 @@
 
 .study-chart {
     margin-bottom: 20px;
-    background-color: rgb(7, 199, 247);
+    border: 1px solid #080808;
 }
 
 .calendar {
-    background-color: rgb(7, 199, 247);
+    border: 1px solid #080808;
 }
 

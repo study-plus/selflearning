@@ -1,6 +1,7 @@
 <%= stylesheet_link_tag "user", :media => "all" %>
 
 <div class="profile">
+    <h3 class="title">プロフィール</h3>
     <p>名前 : <%= @user.name %></p>
     <p>メールアドレス : <%= @user.email %></p>
     <p>プロフィール : <%= @user.profile %></p>
@@ -23,22 +24,42 @@
 <div class="main-container">
     <div class="left-container">
         <div class="mytime-line">
-            <h3><%= @user.name %>さんの最近の状況</h3>
+            <h3 class="title"><%= @user.name %>さんの最近の状況</h3>
             <% @user.checked_posts.each do |cp| %>
-                <p>
-                    <%= cp.subject_name %>
-                    <%= cp.content %>
-                </p>
+                <div class="checked-post">
+                    <div class="content">
+                        <%= cp.subject_name %> <%= cp.content %> <%= cp.hour %>時間<%= cp.minutes %>分
+                    </div>
+                    <div class="detail">
+                        <%= cp.created_at %>
+                        <%= link_to post_path(cp.id) do %>
+                            <i class="fas fa-info-circle"></i>
+                        <% end %>
+                        <% if user_signed_in? %>
+                            <% if current_user.already_liked?(cp) %>
+                                <%= link_to post_like_path(id: cp.id, post_id: cp.id), method: :delete , data: {confirm: '本当に消してもいいの？'} do %>
+                                    <i class="fas fa-heart"></i><%= cp.likes.count %>
+                                <% end %>
+                            <% else %>
+                                <%= link_to post_likes_path(id: cp.id, post_id: cp.id), method: :post do %>
+                                    <i class="far fa-heart"></i><%= cp.likes.count %>
+                                <% end %>
+                            <% end %>
+                        <% else %>
+                            <i class="far fa-heart"></i> <%= cp.likes.count %>
+                        <% end %>
+                    </div>
+                </div>
             <% end %>
         </div>
     </div>
     <div class="right-container">
         <div class="study-chart">
-            <h3><%= @user.name %>さんの勉強時間</h3>
+            <h3 class="title"><%= @user.name %>さんの勉強時間</h3>
             <%= column_chart Post.pluck(:created_at, :total) %>
         </div>
         <div class="calendar">
-            <h3><%= @user.name %>さんの予定</h3>
+            <h3 class="title"><%= @user.name %>さんの予定</h3>
             <% if @user.id == current_user.id %>
                 <%= button_to "予定を追加する", "/users/#{@user.id}/events/new" %>
             <% end %>
