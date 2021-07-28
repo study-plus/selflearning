@@ -7,7 +7,7 @@
     <p>プロフィール : <%= @user.profile %></p>
     <%= render "relationships/follow_button", user: @user %>
     <% if @user.id == current_user.id %>
-        <%= button_to "プロフィールの編集", edit_user_registration_path, method: :get %>
+        <%= button_to "プロフィールの編集", edit_user_path, method: :get %>
     <% else %>
         <% if @isRoom == true %>
             <a href="/rooms/<%= @roomId %>">チャットへ</a>

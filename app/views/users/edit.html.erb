@@ -1,0 +1,18 @@
+<%= stylesheet_link_tag "edit_user", :media => "all" %>
+
+<div class="post-container">
+    <p class="post-title">プロフィール編集</p>
+    <%= form_for @user do |f| %>
+        <div class="field">
+            <%= f.label :名前 %>
+            <br>
+            <%= f.text_field :name, :size => 30 %>
+        </div>
+        <div class="field">
+            <%= f.label :プロフィール %>
+            <br>
+            <%= f.text_field :profile, :size => 140 %>
+        </div>
+        <%= f.submit "編集する" %>
+    <% end %>
+</div>
