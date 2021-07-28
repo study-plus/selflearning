@@ -23,6 +23,7 @@
 header{
     background-color: #00acee;
     height: 80px;
+    margin-bottom: 20px;
     font-weight: bold;
     display: flex;
     justify-content: space-between;

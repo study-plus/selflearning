@@ -2,6 +2,8 @@
 
 <div class="post-container">
     <p class="post-title">プロフィール編集</p>
+    <p>e-mail、パスワードの編集は<%= link_to "コチラ", edit_user_registration_path %></p>
+    <br>
     <%= form_for @user do |f| %>
         <div class="field">
             <%= f.label :名前 %>
