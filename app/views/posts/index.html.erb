@@ -39,7 +39,7 @@
                 <%= submit_tag "検索" %>
             <% end %>
             <% @posts.each do |p| %>
-                <% if current_user.already_checked?(p) %>
+                <% if p.user.already_checked?(p) %>
                     <div class="post">
                         <a href="/users/<%= p.user.id %>"><%= p.user.name %></a>
                         <div class="left-container">

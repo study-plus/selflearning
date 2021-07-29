@@ -56,7 +56,11 @@
     <div class="right-container">
         <div class="study-chart">
             <h3 class="title"><%= @user.name %>さんの勉強時間</h3>
-            <%= column_chart Post.pluck(:created_at, :total) %>
+            <% if @data == [] %>
+                <p>まだ何も達成されていません</p>
+            <% else %>
+                <%= column_chart @data.pluck(:created_at, :total) %>
+            <% end %>
         </div>
         <div class="calendar">
             <h3 class="title"><%= @user.name %>さんの予定</h3>
