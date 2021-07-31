@@ -1,2 +1,12 @@
-<%= link_to("ログイン", posts_path) %>
-<%= link_to("新規登録", new_user_registration_path) %>
+<%= stylesheet_link_tag "top", :media => "all" %>
+
+<div class="main-container">
+    <div class="left-container">
+        <p>自宅を自習室に。</p>
+        <p>自学を当たり前に。</p>
+    </div>
+    <div class="right-container">
+        <%= button_to "ログイン", posts_path, method: :get %>
+        <%= button_to "新規登録", new_user_registration_path, method: :get %>
+    </div>
+</div>
