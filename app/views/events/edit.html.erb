@@ -1,7 +1,7 @@
 <%= stylesheet_link_tag "new", :media => "all" %>
 
 <div class="post-container">
-    <%= form_with(model: [@user,@event], url: user_events_path, local: true) do |f| %>
+    <%= form_with(model: [@user,@event], url: user_event_path, local: true) do |f| %>
         <div class="title">
             <%= f.label :予定の概要 %>
             <%= f.text_field :title %>
